@@ -12,4 +12,15 @@ jobs:
         steps:
         -   name: install git curl wget
             run: sudo apt update && sudo apt install -y git curl wget
+        -   name: Checkout
+            uses: actions/checkout@maste
+        -   name: Build and Deploy
+            uses: JamesIves/github-pages-deploy-action@master
+            env:
+                ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+                BRANCH: gh-pages
+                FOLDER: conf
+                BUILD_SCRIPT: wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && \
+                                chmod +x ./gfwlist2dnsmasq.sh && \
+                                ./gfwlist2dnsmasq.sh -o ./gfw.conf
       
