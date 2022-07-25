@@ -14,11 +14,14 @@ jobs:
             run: sudo apt update && sudo apt install -y git curl wget
         -   name: Checkout
             uses: actions/checkout@main
-        -   name: Build and Deploy
-            uses: JamesIves/github-pages-deploy-action@main
+        -   name: Build
+            run: mkdir public && cd public && wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && chmod +x ./gfwlist2dnsmasq.sh && ./gfwlist2dnsmasq.sh -o ./gfw.conf
+        -   name: Deploy to GitHub Pages
+            if: success()
+            uses: crazy-max/ghaction-github-pages@v3
+            with:
+                target_branch: gh-pages
+                build_dir: public
             env:
-                ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-                BRANCH: gh-pages
-                FOLDER: conf
-                BUILD_SCRIPT: wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && chmod +x ./gfwlist2dnsmasq.sh && ./gfwlist2dnsmasq.sh -o ./gfw.conf
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
