@@ -1,0 +1,24 @@
+{
+  "name": "doh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rekey/doh.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rekey/doh/issues"
+  },
+  "homepage": "https://github.com/rekey/doh#readme",
+  "dependencies": {
+    "dns2": "^2.0.5",
+    "got-cjs": "^12.0.1",
+    "koa": "^2.13.4"
+  }
+}
