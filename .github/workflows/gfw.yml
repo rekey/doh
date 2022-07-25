@@ -20,7 +20,5 @@ jobs:
                 ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
                 BRANCH: gh-pages
                 FOLDER: conf
-                BUILD_SCRIPT: wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && \
-                                chmod +x ./gfwlist2dnsmasq.sh && \
-                                ./gfwlist2dnsmasq.sh -o ./gfw.conf
+                BUILD_SCRIPT: wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && chmod +x ./gfwlist2dnsmasq.sh && ./gfwlist2dnsmasq.sh -o ./gfw.conf
       
