@@ -19,7 +19,7 @@ jobs:
         -   name: Build GFW
             run: mkdir -p public && cd public && wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && chmod +x ./gfwlist2dnsmasq.sh && ./gfwlist2dnsmasq.sh -o ./gfw.conf
         -   name: Build China List
-            run: mkdir -p public && cd public && wget https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf -o china.conf
+            run: mkdir -p public && cd public && wget https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf -O china.conf
         -   name: Deploy to GitHub Pages
             if: success()
             uses: crazy-max/ghaction-github-pages@v3
