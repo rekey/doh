@@ -1,0 +1,15 @@
+name: gfwlist2dnsmasq
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    my-job:
+        name: My Job
+        runs-on: ubuntu-latest
+        steps:
+        -   name: install git curl wget
+            run: apt update && apt install -y git curl wget
+      
