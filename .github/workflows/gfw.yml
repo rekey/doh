@@ -17,9 +17,9 @@ jobs:
         -   name: Checkout
             uses: actions/checkout@main
         -   name: Build GFW
-            run: wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && chmod +x ./gfwlist2dnsmasq.sh && ./gfwlist2dnsmasq.sh -o ./gfw.conf
+            run: mkdir public && cd public && wget https://raw.githubusercontent.com/cokebar/gfwlist2dnsmasq/master/gfwlist2dnsmasq.sh && chmod +x ./gfwlist2dnsmasq.sh && ./gfwlist2dnsmasq.sh -o ./gfw.conf
         -   name: Build China List
-            run: wget https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf -o china.conf
+            run: mkdir public && cd public && wget https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf -o china.conf
         -   name: Deploy to GitHub Pages
             if: success()
             uses: crazy-max/ghaction-github-pages@v3
