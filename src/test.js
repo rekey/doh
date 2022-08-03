@@ -1,7 +1,8 @@
-const {Packet} = require('dns2');
+const siteSvc = require('./service/site');
 
-
-const buffer = Buffer.from('uGkBAAABAAAAAAAAB2FsaWJhYmEDY29tAAABAAE', 'base64');
-const packet = Packet.parse(buffer);
-
-console.log(packet);
+Promise.all([
+    siteSvc.updateList('gfw'),
+    siteSvc.updateList('china'),
+]).then(() => {
+    console.log(11111);
+});

@@ -3,17 +3,26 @@ const path = require('path');
 const {got} = require('got-cjs');
 
 const gfwFile = path.resolve(__dirname, '../data/gfw.json');
+const gfwSiteListUrl = 'https://raw.githubusercontent.com/rekey/doh/gh-pages/gfw.conf';
+const chinaFile = path.resolve(__dirname, '../data/china.json');
+const chinaSiteListUrl = 'https://raw.githubusercontent.com/rekey/doh/gh-pages/china.conf';
 
-let data = {};
-
+let gfwData = {};
 try {
-    data = require(gfwFile);
+    gfwData = require(gfwFile);
+} catch (e) {
+
+}
+let chinaData = {};
+try {
+    chinaData = require(chinaFile);
 } catch (e) {
 
 }
 
-async function save() {
-    const resp = await got('https://raw.githubusercontent.com/rekey/doh/gh-pages/gfw.conf');
+async function updateList(type) {
+    const url = type === 'gfw' ? gfwSiteListUrl : chinaSiteListUrl;
+    const resp = await got(url);
     if (resp.statusCode !== 200) {
         return Promise.reject('request error');
     }
@@ -25,10 +34,14 @@ async function save() {
             results[domain] = 1;
         }
     });
-    data = results;
-    fs.writeFileSync(gfwFile, JSON.stringify(data, null, 4));
+    if (type === 'gfw') {
+        gfwData = results;
+    } else {
+        chinaData = results;
+    }
+    fs.writeFileSync(type === 'gfw' ? gfwFile : chinaFile, JSON.stringify(results, null, 4));
 }
 
 module.exports = {
-    save,
+    updateList,
 };
