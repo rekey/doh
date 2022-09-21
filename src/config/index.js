@@ -1,3 +1,8 @@
 module.exports = {
-    mode : 'china-list' // gfw | china-list | global | china
+    // gfw | china-list | global | china
+    mode : 'china-list',
+    dns  : {
+        global : '8.8.8.8',
+        china  : '223.5.5.5',
+    },
 };

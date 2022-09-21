@@ -4,8 +4,7 @@ const config = require('../config');
 const gfwData = require('../data/gfw.json');
 const chinaData = require('../data/china.json');
 
-const globalIP = '8.8.8.8';
-const chinaIP = '223.5.5.5';
+const dnsApi = config.dns;
 
 function getDomain(str) {
     try {
@@ -28,23 +27,26 @@ function getRootDomain(domain) {
 }
 
 async function getDnsIP(domain) {
+    if (domain === dnsApi.global) {
+        return dnsApi.china;
+    }
     if (config.mode === 'global') {
-        return globalIP;
+        return dnsApi.global;
     }
     if (config.mode === 'china') {
-        return chinaIP;
+        return dnsApi.china;
     }
     const root = getRootDomain(domain);
     if (config.mode === 'china-list') {
         if (chinaData[root]) {
-            return chinaIP;
+            return dnsApi.china;
         }
-        return globalIP;
+        return dnsApi.global;
     }
     if (gfwData[root]) {
-        return globalIP;
+        return dnsApi.global;
     }
-    return chinaIP;
+    return dnsApi.china;
 }
 
 module.exports = {
