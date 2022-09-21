@@ -5,4 +5,6 @@ module.exports = {
         global : '8.8.8.8',
         china  : '223.5.5.5',
     },
+    // internal | public
+    net  : 'internal'
 };

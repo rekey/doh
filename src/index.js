@@ -2,6 +2,7 @@ const Koa = require('koa');
 const request = require('request');
 
 const domainSvc = require('./service/domain');
+const config = require('./config');
 
 const app = new Koa();
 
@@ -18,9 +19,14 @@ app.use(async (ctx, next) => {
         domain = domainSvc.getDomain(ctx.query.dns);
         dnsIP = await domainSvc.getDnsIP(domain);
     }
+    const headers = {};
+    if (config.net === 'public') {
+        headers['X-Forwarded-For'] = ctx.ip;
+    }
     ctx.body = request({
         uri : `https://${dnsIP}${ctx.path}`,
         qs  : ctx.query,
+        headers,
     });
 });
 
