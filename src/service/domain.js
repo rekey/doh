@@ -1,8 +1,8 @@
 const {Packet} = require('dns2');
 
 const config = require('../config');
-const gfwData = require('../data/gfw.json');
-const chinaData = require('../data/china.json');
+let gfwData = require('../data/gfw.json');
+let chinaData = require('../data/china.json');
 
 const dnsApi = config.dns;
 
@@ -26,17 +26,25 @@ function getRootDomain(domain) {
     return arr.slice(arr.length - 2).join('.');
 }
 
-async function getDnsIP(domain) {
-    if (domain === dnsApi.global) {
-        return dnsApi.china;
-    }
+function getLast(domain) {
+    const arr = domain.split('.');
+    return arr[arr.length - 1];
+}
+
+function getDnsIP(domain) {
     if (config.mode === 'global') {
         return dnsApi.global;
     }
     if (config.mode === 'china') {
         return dnsApi.china;
     }
+    if (getLast(domain) === 'cn') {
+        return dnsApi.china;
+    }
     const root = getRootDomain(domain);
+    if (root === 'com.cn') {
+        return dnsApi.china;
+    }
     if (config.mode === 'china-list') {
         if (chinaData[root]) {
             return dnsApi.china;
@@ -51,5 +59,12 @@ async function getDnsIP(domain) {
 
 module.exports = {
     getDomain,
-    getDnsIP,
+    getDnsIP(domain) {
+        const ips = getDnsIP(domain);
+        return ips[Math.floor(Math.random() * ips.length)];
+    },
+    update() {
+        gfwData = require('../data/gfw.json');
+        chinaData = require('../data/china.json');
+    }
 };
