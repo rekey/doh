@@ -14,6 +14,10 @@ module.exports = {
             '120.53.53.53'
         ],
     },
+    site : {
+        gfw   : 'https://raw.githubusercontent.com/rekey/doh/gh-pages/gfw.conf',
+        china : 'https://raw.githubusercontent.com/rekey/doh/gh-pages/china.conf',
+    },
     // internal | public
     net : 'internal'
 };

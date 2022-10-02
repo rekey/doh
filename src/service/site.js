@@ -2,10 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const {got} = require('got-cjs');
 
+const config = require('../config');
 const gfwFile = path.resolve(__dirname, '../data/gfw.json');
-const gfwSiteListUrl = 'https://raw.githubusercontent.com/rekey/doh/gh-pages/gfw.conf';
+const gfwSiteListUrl = config.site.gfw;
 const chinaFile = path.resolve(__dirname, '../data/china.json');
-const chinaSiteListUrl = 'https://raw.githubusercontent.com/rekey/doh/gh-pages/china.conf';
+const chinaSiteListUrl = config.site.china;
 
 let gfwData = {};
 try {
